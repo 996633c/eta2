@@ -23,7 +23,7 @@ jobs:
           pip install -r requirements.txt
       - name: Crawling resources
         run: |
-          python test3.py
+          python kmb_stop.py
       - name: Update resources
         uses: test-room-7/action-update-file@v1
         with:
