@@ -11,6 +11,6 @@ r2 = r2["data"]
 
 r3={}
 for i in r2:
-  r3[i["stop"]] = [i["name_tc"],i["name_en"]]
+  r3[i["stop"]] = i["name_tc"]
 with open('kmb_stop.json', 'w') as f2:
   f2.write(json.dumps(r3, ensure_ascii=False))
