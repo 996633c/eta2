@@ -24,11 +24,13 @@ jobs:
       - name: Crawling resources
         run: |
           python kmb_stop.py
+          python route.py
       - name: Update resources
         uses: test-room-7/action-update-file@v1
         with:
             file-path: |
               kmb_stop.json
+              routes.json
             github-token: ${{ secrets.GITHUB_TOKEN }}
             commit-msg: Fetched Data | Update per week
             branch: data
