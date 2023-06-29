@@ -5,7 +5,7 @@ def getReq(link):
   print(x.status_code)
   return x.text
 
-ctb = json.loads(getReq('https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/route/ctb'))["data"]
+ctb = json.loads(getReq('https://rt.data.gov.hk/v2/transport/citybus/route/ctb'))["data"]
 nwfb = json.loads(getReq('https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/route/nwfb'))["data"]
 kmb = json.loads(getReq('https://data.etabus.gov.hk/v1/transport/kmb/route'))["data"]
 
