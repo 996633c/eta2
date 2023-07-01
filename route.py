@@ -6,14 +6,10 @@ def getReq(link):
   return x.text
 
 ctb = json.loads(getReq('https://rt.data.gov.hk/v2/transport/citybus/route/ctb'))["data"]
-nwfb = json.loads(getReq('https://rt.data.gov.hk/v1.1/transport/citybus-nwfb/route/nwfb'))["data"]
 kmb = json.loads(getReq('https://data.etabus.gov.hk/v1/transport/kmb/route'))["data"]
 
 r3=[]
 for i in ctb:
-  r3.append({"co":i["co"],"r":i["route"],"d":i["orig_tc"],"d_en":i["orig_en"],"b":"I"})
-  r3.append({"co":i["co"],"r":i["route"],"d":i["dest_tc"],"d_en":i["dest_en"],"b":"O"})
-for i in nwfb:
   r3.append({"co":i["co"],"r":i["route"],"d":i["orig_tc"],"d_en":i["orig_en"],"b":"I"})
   r3.append({"co":i["co"],"r":i["route"],"d":i["dest_tc"],"d_en":i["dest_en"],"b":"O"})
 for i in kmb:
