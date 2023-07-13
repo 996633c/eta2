@@ -135,7 +135,6 @@ with open('gtfs/stops.txt') as csvfile:
   reader = csv.reader(csvfile)
   next(reader, None)
   for [id,stop_name,lat,long,_,_,_] in reader:
-    LIST2.append(stop_name)
     for j in _stoplist:
       if _stoplist[j]["data"]["name_tc"] in stop_name and not j in _stoplist[j]["td"]:
         _stoplist[j]["td"].append(id)
