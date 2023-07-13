@@ -25,12 +25,17 @@ jobs:
         run: |
           python kmb_stop.py
           python route.py
+      - name: main2.py
+        run: |
+          python main2.py
       - name: Update resources
         uses: test-room-7/action-update-file@v1
         with:
             file-path: |
               kmb_stop.json
               routes.json
+              _rtlist.json
+              _stoplist.json
             github-token: ${{ secrets.GITHUB_TOKEN }}
             commit-msg: Fetched Data | Update per week
             branch: data
