@@ -110,7 +110,7 @@ print(NOTMACHER)
 for i in MATCHER:
   min2 = min(MATCHER[i], key = lambda x:x[1])
   _stoplist[i]["alt"].append(min2[0])
-  print(_stoplist[i]["data"]["name_tc"], _stoplist[min2[0]]["data"]["name_tc"])
+  #print(_stoplist[i]["data"]["name_tc"], _stoplist[min2[0]]["data"]["name_tc"])
 
 #PARSE KMB BBIs (annoying)
 KMBBBI = {}
