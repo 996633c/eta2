@@ -238,8 +238,7 @@ for co4 in ("CTB","KMB"):
       except: print(co4,i)
 
 #Part IV parse out
-f = open("_stoplist.txt","a")
-f.write(json.dumps(_stoplist, ensure_ascii=False))
-
-f2 = open("_rtlist.txt","a")
-f2.write(json.dumps(_rtlist, ensure_ascii=False))
+with open('_rtlist.json', 'w') as f:
+  f.write(json.dumps(_rtlist, ensure_ascii=False))
+with open('_stoplist.json', 'w') as f2:
+  f2.write(json.dumps(_stoplist, ensure_ascii=False))
