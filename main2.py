@@ -234,7 +234,7 @@ for co4 in ("CTB","KMB"):
         else: _rtlist[co4][i]["fare"] = {"I1":[],"O1":[]}
       lst = fixRt(lst,j,"2")
 
-      try: _rtlist[co4][i]["fare"][k] = list(map(lambda x:x[0][0],list(lst.values())))
+      try: _rtlist[co4][i]["fare"][k] = list(map(lambda x:x[0],list(lst.values())))
       except: print(co4,i)
 
 #Part IV parse out
