@@ -43,8 +43,8 @@ for i in KMB_rt["data"]:
   _rtlist["KMB"][i["route"]]["var"][i["bound"]+i["service_type"]] = i
 for i in CTB_rt["data"]:
   _rtlist["CTB"][i["route"]] = {"co":"CTB", "route":i["route"], "var":{
-    "I":{"route":i["route"], "bound":"I", "dest_tc":i["dest_tc"], "dest_en":i["dest_en"], "orig_tc":i["orig_tc"], "orig_en":i["orig_en"], "stops":[]},
-    "O":{"route":i["route"], "bound":"O", "orig_tc":i["dest_tc"], "orig_en":i["dest_en"], "dest_tc":i["orig_tc"], "dest_en":i["orig_en"], "stops":[]}
+    "I":{"route":i["route"], "bound":"I", "orig_tc":i["dest_tc"], "orig_en":i["dest_en"], "dest_tc":i["orig_tc"], "dest_en":i["orig_en"], "stops":[]},
+    "O":{"route":i["route"], "bound":"O", "dest_tc":i["dest_tc"], "dest_en":i["dest_en"], "orig_tc":i["orig_tc"], "orig_en":i["orig_en"], "stops":[]}
   }, "td":{}}
   _rtlist["CTB"][i["route"]]["var"]["I"]["stops"] = list(map(lambda x: x["stop"],json.loads(getReq("https://rt.data.gov.hk/v2/transport/citybus/route-stop/ctb/"+i["route"]+"/inbound"))["data"]))
   _rtlist["CTB"][i["route"]]["var"]["O"]["stops"] = list(map(lambda x: x["stop"],json.loads(getReq("https://rt.data.gov.hk/v2/transport/citybus/route-stop/ctb/"+i["route"]+"/outbound"))["data"]))
