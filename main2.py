@@ -73,7 +73,7 @@ with open('gtfs/routes.txt') as csvfile:
       try: _rtlist[co][rt]["td"][id]=dst
       except: print(rt)
     elif co=="LWB":
-      try: _rtlist["LWB"][rt]["td"][id]=dst
+      try: _rtlist["KMB"][rt]["td"][id]=dst
       except: print(rt)
 
 #Match CTB & KMB STOPS
@@ -215,6 +215,24 @@ def fixRt(list2,rt,bound):
         print("*",rt,tmp02)
       lastWork=list2[i][2]
       tmp02=[]
+
+  tmp0 = 0
+  tmp2 = []
+  print("FIXING RT2:",rt,list2)
+  for j in list2:
+    if list2[j][0] == "-1" or list2[j][0] == "-2": 
+      #No Value
+      tmp2.append(j)
+    else:
+      #Has Value
+      if len(tmp2)>0:
+        if list2[j][0][0][0] == tmp0[0][0][0]:
+          print("FIX RT: ",rt,list2,tmp2,tmp0)
+          for k in tmp2:
+            list2[k] = tmp0
+        tmp2=[]
+      tmp0 = list2[j]
+
   return list2
       
 
