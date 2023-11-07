@@ -255,7 +255,36 @@ for co4 in ("CTB","KMB"):
       try: _rtlist[co4][i]["fare"][k] = list(map(lambda x:x[0],list(lst.values())))
       except: print(co4,i)
 
-#Part IV parse out
+#Part IV Parse Near Stops and Distance
+def get_distance_from_lat_lon_in_km(s1,s2):
+    lat1 = float(s1["lat"])
+    lon1 = float(s1["long"])
+    lat2 = float(s2["lat"])
+    lon2 = float(s2["long"])
+    R = 6371  # Radius of the earth in km
+    d_lat = deg2rad(lat2 - lat1)  # deg2rad below
+    d_lon = deg2rad(lon2 - lon1)
+    a = (
+        math.sin(d_lat / 2) * math.sin(d_lat / 2) +
+        math.cos(deg2rad(lat1)) * math.cos(deg2rad(lat2)) *
+        math.sin(d_lon / 2) * math.sin(d_lon / 2)
+    )
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    d = R * c  # Distance in km
+    return d
+
+def deg2rad(deg):
+    return deg * (math.pi / 180)
+
+for stops in _stoplist:
+  k=[]
+  for stop_i in _stoplist:
+    length = get_distance_from_lat_lon_in_km(_stoplist[stops]["data"],_stoplist[stop_i]["data"])
+    if length<1 and stop_i!=stops:
+      k.append([stop_i,length])
+  _stoplist[stops]["near"] = k
+
+#Part V parse out
 with open('_rtlist.json', 'w') as f:
   f.write(json.dumps(_rtlist, ensure_ascii=False))
 with open('_stoplist.json', 'w') as f2:
