@@ -276,13 +276,33 @@ def get_distance_from_lat_lon_in_km(s1,s2):
 def deg2rad(deg):
     return deg * (math.pi / 180)
 
+def stopinlist(stop,l1,co):
+  dir = "O1" if co=="KMB" else "O"
+  dir2 = "I1" if co=="KMB" else "I"
+  try: 
+    if stop in l1[dir]["stops"]: return True 
+  except: pass
+  try: 
+    if stop in l1[dir]["stops"]: return True 
+  except: pass
+  return False
+
+_nearlist = {}
 for stops in _stoplist:
   k=[]
   for stop_i in _stoplist:
     length = get_distance_from_lat_lon_in_km(_stoplist[stops]["data"],_stoplist[stop_i]["data"])
-    if length<1 and stop_i!=stops:
-      k.append([stop_i,length])
-  _stoplist[stops]["near"] = k
+    if length<0.6 and stop_i!=stops:
+      k.append([stop_i,round(length*1000)])
+  k.sort(key=lambda x:x[1])
+  _nearlist[stops]= k
+
+  rtstop=[]
+  for co in ("CTB","KMB"):
+    for rt in _rtlist[co]:
+      if stopinlist(stops,_rtlist[co][rt]["var"],co):
+          if not stops in rtstop: rtstop.append(co+"_"+rt)
+  _stoplist[stops]["rt"] = rtstop
 
 #Part V parse out
 with open('_rtlist.json', 'w') as f:
