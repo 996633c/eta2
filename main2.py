@@ -309,3 +309,5 @@ with open('_rtlist.json', 'w') as f:
   f.write(json.dumps(_rtlist, ensure_ascii=False))
 with open('_stoplist.json', 'w') as f2:
   f2.write(json.dumps(_stoplist, ensure_ascii=False))
+with open('_nearlist.json', 'w') as f2:
+  f2.write(json.dumps(_nearlist, ensure_ascii=False))
