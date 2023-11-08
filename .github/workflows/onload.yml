@@ -30,6 +30,7 @@ jobs:
             file-path: |
               _rtlist.json
               _stoplist.json
+              _nearlist.json
             github-token: ${{ secrets.GITHUB_TOKEN }}
             commit-msg: Fetched Data | Update per week
             branch: data
