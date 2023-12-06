@@ -301,7 +301,7 @@ for stops in _stoplist:
   for co in ("CTB","KMB"):
     for rt in _rtlist[co]:
       if stopinlist(stops,_rtlist[co][rt]["var"],co):
-          if not stops in rtstop: rtstop.append(co+"_"+rt)
+          rtstop.append(co+"_"+rt)
   _stoplist[stops]["rt"] = rtstop
 
 #Part V parse out
