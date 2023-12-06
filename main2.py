@@ -283,7 +283,7 @@ def stopinlist(stop,l1,co):
     if stop in l1[dir]["stops"]: return True 
   except: pass
   try: 
-    if stop in l1[dir]["stops"]: return True 
+    if stop in l1[dir2]["stops"]: return True 
   except: pass
   return False
 
