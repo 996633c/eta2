@@ -45,20 +45,8 @@ def mapData(data,bound):
       "timeLimit": x["timeLimit"],
       "remark": x["remark"]
       })
-  print(s)
   return s
-  '''
-  return list(map(lambda x: [x["direction"],list(map(lambda x: {
-      "co": x["secondProvider"].strip(),
-      "route": x["route"].strip(),
-      "direction":x["direction"],
-      "stopName":x["stopName"], 
-      #"discount":x["discount"],
-      "dInfo":FareProperty[x["discount"]]+mapCTBData(x["discountAmount"],x["totalFare"]),
-      "timeLimit": x["timeLimit"],
-      "remark": x["remark"]
-      }, x["ir"]))],)[0]
-   '''
+
   
 for rt in CTB_rt2:
   k=json.loads(getReq("https://www.citybus.com.hk/concessionApi/public/bbi/api/v1/route/tc/"+rt))
