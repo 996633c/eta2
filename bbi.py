@@ -30,6 +30,23 @@ def mapCTBData(data,tf):
 
 
 def mapData(data,bound):
+  k = list(filter(lambda x: x["bound"]==bound and x["legType"]=="1",data))
+  s = []
+  for i in k:
+    for j in k[i]["ir"]:
+      x = k[i]["ir"][j]
+      s.append({
+      "co": x["secondProvider"].strip(),
+      "route": x["route"].strip(),
+      "direction":x["direction"],
+      "stopName":x["stopName"], 
+      #"discount":x["discount"],
+      "dInfo":FareProperty[x["discount"]]+mapCTBData(x["discountAmount"],x["totalFare"]),
+      "timeLimit": x["timeLimit"],
+      "remark": x["remark"]
+      })
+  return s
+  '''
   return list(map(lambda x: [x["direction"],list(map(lambda x: {
       "co": x["secondProvider"].strip(),
       "route": x["route"].strip(),
@@ -39,17 +56,19 @@ def mapData(data,bound):
       "dInfo":FareProperty[x["discount"]]+mapCTBData(x["discountAmount"],x["totalFare"]),
       "timeLimit": x["timeLimit"],
       "remark": x["remark"]
-      }, x["ir"]))],filter(lambda x: x["bound"]==bound and x["legType"]=="1",data)))[0]
+      }, x["ir"]))],)[0]
+   '''
   
 for rt in CTB_rt2:
   k=json.loads(getReq("https://www.citybus.com.hk/concessionApi/public/bbi/api/v1/route/tc/"+rt))
-  try:
-    data = list(k.values())
-    CHG["CTB_"+rt+"_O"] = mapData(data,"F")
-    CHG["CTB_"+rt+"_I"] = mapData(data,"B")
-  except:
-    pass
-  time.sleep(2+random.random())
+  try: data = list(k.values())
+  except: continue
+  try: CHG["CTB_"+rt+"_O"] = mapData(data,"F")
+  except: pass
+  try: CHG["CTB_"+rt+"_I"] = mapData(data,"B")
+  except: pass
+  
+  time.sleep(3*random.random())
 
 f1 = json.loads(getReq("https://www.kmb.hk/storage/BBI_routeF1.js"))
 f2 = json.loads(getReq("https://www.kmb.hk/storage/BBI_routeF2.js"))
