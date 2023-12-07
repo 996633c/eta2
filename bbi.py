@@ -45,7 +45,6 @@ def mapData(data,bound):
       "timeLimit": x["timeLimit"],
       "remark": x["remark"]
       })
-  print(s)
   return s
 
   
