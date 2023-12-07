@@ -39,7 +39,7 @@ def mapData(data,bound):
       "dInfo":FareProperty[x["discount"]]+mapCTBData(x["discountAmount"],x["totalFare"]),
       "timeLimit": x["timeLimit"],
       "remark": x["remark"]
-      }, x["ir"]))],filter(lambda x: x["bound"]==bound and x["legType"]=="1",data)))
+      }, x["ir"]))],filter(lambda x: x["bound"]==bound and x["legType"]=="1",data)))[0]
   
 for rt in CTB_rt2:
   k=json.loads(getReq("https://www.citybus.com.hk/concessionApi/public/bbi/api/v1/route/tc/"+rt))
@@ -60,14 +60,14 @@ def kmbDetailHandler(d):
   return d.split("data-title='")[1].split("'")[0]+"\n"
 
 KMBTimeLimit = {
-"":"150分鐘",
-"^":"30分鐘",
-"#":"60分鐘",
-"*":"90分鐘",
-"@":"120分鐘"
+"":"150",
+"^":"30",
+"#":"60",
+"*":"90",
+"@":"120"
 }
 
-for NS in [(f1,"O"),(f2,"I")]:
+for NS in [(f1,"I"),(f2,"O")]:
   for rt in NS[0]:
     if NS[0][rt]["Records"]=="": pass
     k = list(map(lambda y: {
