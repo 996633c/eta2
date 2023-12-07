@@ -45,6 +45,7 @@ def mapData(data,bound):
       "timeLimit": x["timeLimit"],
       "remark": x["remark"]
       })
+  print(s)
   return s
 
   
@@ -52,10 +53,8 @@ for rt in CTB_rt2:
   k=json.loads(getReq("https://www.citybus.com.hk/concessionApi/public/bbi/api/v1/route/tc/"+rt))
   try: data = list(k.values())
   except: continue
-  try: CHG["CTB_"+rt+"_O"] = mapData(data,"F")
-  except: pass
-  try: CHG["CTB_"+rt+"_I"] = mapData(data,"B")
-  except: pass
+  CHG["CTB_"+rt+"_O"] = mapData(data,"F")
+  CHG["CTB_"+rt+"_I"] = mapData(data,"B")
   
   time.sleep(3*random.random())
 
