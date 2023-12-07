@@ -13,7 +13,7 @@ CTB_rt = json.loads(getReq("https://rt.data.gov.hk/v2/transport/citybus/route/ct
 
 CTB_rt2 = list(map(lambda x: x["route"], CTB_rt))
 
-CHG = {"date":date.today()}
+CHG = {"date":str(date.today())}
 
 FareProperty={
    "L2":"次程免費",
