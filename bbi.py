@@ -32,8 +32,8 @@ def mapCTBData(data,tf):
 def mapData(data,bound):
   k = list(filter(lambda x: x["bound"]==bound and x["legType"]=="1",data))
   s = []
-  for i in k:
-    for j in k[i]["ir"]:
+  for i in range(len(k)):
+    for j in range(len(k[i]["ir"])):
       x = k[i]["ir"][j]
       s.append({
       "co": x["secondProvider"].strip(),
@@ -45,6 +45,7 @@ def mapData(data,bound):
       "timeLimit": x["timeLimit"],
       "remark": x["remark"]
       })
+  print(s)
   return s
   '''
   return list(map(lambda x: [x["direction"],list(map(lambda x: {
