@@ -45,7 +45,7 @@ def mapData(data,bound):
       "timeLimit": x["timeLimit"],
       "remark": x["remark"]
       })
-  return s
+  return [k[0]["direction"],s]
 
   
 for rt in CTB_rt2:
