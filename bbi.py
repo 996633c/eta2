@@ -32,6 +32,7 @@ def mapCTBData(data,tf):
 def mapData(data,bound):
   k = list(filter(lambda x: x["bound"]==bound and x["legType"]=="1",data))
   s = []
+  if(len(k)==0)return [];
   for i in range(len(k)):
     for j in range(len(k[i]["ir"])):
       x = k[i]["ir"][j]
