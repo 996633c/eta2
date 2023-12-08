@@ -59,7 +59,7 @@ for rt in CTB_rt2:
   time.sleep(3*random.random())
 
 f1 = json.loads(getReq("https://www.kmb.hk/storage/BBI_routeF1.js"))
-f2 = json.loads(getReq("https://www.kmb.hk/storage/BBI_routeF2.js"))
+f2 = json.loads(getReq("https://www.kmb.hk/storage/BBI_routeB1.js"))
 
 def kmbDetailHandler(d):
   if d=="":return "";
@@ -74,7 +74,7 @@ KMBTimeLimit = {
 "@":"120"
 }
 
-for NS in [(f1,"I"),(f2,"O")]:
+for NS in [(f1,"O"),(f2,"I")]:
   for rt in NS[0]:
     if NS[0][rt]["Records"]=="": pass
     k = list(map(lambda y: {
