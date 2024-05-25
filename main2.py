@@ -309,8 +309,8 @@ for stops in _stoplist:
 
 
 #Part V parse Circular Routers
-try:
-  for i in CTB_rt["data"]:
+for i in CTB_rt["data"]:
+  try:
     _In = 0
     _Out = _rtlist["CTB"][i["route"]]["var"]["O"]["stops"].index(_rtlist["CTB"][i["route"]]["var"]["I"]["stops"][0])
     _Counter = 0
@@ -327,8 +327,8 @@ try:
       _rtlist["CTB"][i["route"]]["fare"]["I"] = []
       print(_rtlist["CTB"][i["route"]]["var"]["O"]["stops"] + _rtlist["CTB"][i["route"]]["var"]["I"]["stops"][_Counter : ])
     print(_In, _Out, _Counter, i)
-except:
-  print(i)
+  except:
+    print(i)
 
 #Part VI parse out
 with open('_rtlist.json', 'w') as f:
