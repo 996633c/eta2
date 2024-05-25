@@ -49,6 +49,8 @@ for i in CTB_rt["data"]:
   _rtlist["CTB"][i["route"]]["var"]["I"]["stops"] = list(map(lambda x: x["stop"],json.loads(getReq("https://rt.data.gov.hk/v2/transport/citybus/route-stop/ctb/"+i["route"]+"/inbound"))["data"]))
   _rtlist["CTB"][i["route"]]["var"]["O"]["stops"] = list(map(lambda x: x["stop"],json.loads(getReq("https://rt.data.gov.hk/v2/transport/citybus/route-stop/ctb/"+i["route"]+"/outbound"))["data"]))
 
+  
+
 KMB_rtstop = json.loads(getReq("https://data.etabus.gov.hk/v1/transport/kmb/route-stop"))
 for i in KMB_rtstop["data"]:
   if not "stops" in _rtlist["KMB"][i["route"]]["var"][i["bound"]+i["service_type"]]: _rtlist["KMB"][i["route"]]["var"][i["bound"]+i["service_type"]]["stops"] = []
@@ -65,7 +67,7 @@ with open('gtfs/routes.txt') as csvfile:
   reader = csv.reader(csvfile)
   next(reader, None)
   for [id,co,rt,dst,_,_] in reader:
-    if co=="KMB+CTB":
+    if co=="KMB+CTB" or co=="LWB+CTB":
       _rtlist["KMB"][rt]["td"][id]=dst
       _rtlist["CTB"][rt]["td"][id]=dst
       if not rt in coopRt: coopRt.append(rt)
@@ -304,7 +306,26 @@ for stops in _stoplist:
           rtstop.append(co+"_"+rt)
   _stoplist[stops]["rt"] = rtstop
 
-#Part V parse out
+
+#Part V parse Circular Routers
+for i in CTB_rt["data"]:
+  _In = 0
+  _Out = _rtlist["CTB"][i["route"]]["var"]["O"]["stops"].index(_rtlist["CTB"][i["route"]]["var"]["I"]["stops"][0])
+  _Counter = 0
+
+  while _Out < len(_rtlist["CTB"][i["route"]]["var"]["O"]["stops"]) and _rtlist["CTB"][i["route"]]["var"]["I"]["stops"][_In] == _rtlist["CTB"][i["route"]]["var"]["O"]["stops"][_Out]:
+    _Counter += 1
+    _In += 1
+    _Out += 1
+
+  if _Counter>1:
+    _rtlist["CTB"][i["route"]]["var"]["O"]["stops"] = _rtlist["CTB"][i["route"]]["var"]["O"]["stops"] + _rtlist["CTB"][i["route"]]["var"]["I"]["stops"][_Counter : ]
+    _rtlist["CTB"][i["route"]]["fare"]["O"] = _rtlist["CTB"][i["route"]]["fare"]["O"] + _rtlist["CTB"][i["route"]]["fare"]["O"][_Counter : ]
+    _rtlist["CTB"][i["route"]]["var"]["I"] = {}
+    _rtlist["CTB"][i["route"]]["fare"]["I"] = []
+
+
+#Part VI parse out
 with open('_rtlist.json', 'w') as f:
   f.write(json.dumps(_rtlist, ensure_ascii=False))
 with open('_stoplist.json', 'w') as f2:
