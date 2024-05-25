@@ -214,6 +214,7 @@ def fixRt(list2,rt,bound):
           try: list2[tmp02[j]] = [GTFS_fare[rt][BOUND2][str(lastWork+j+1)],lastWork+j+1,lastWork+j+1]
           except: pass
       elif len(tmp02)>0:
+        pass
         #print("*",rt,tmp02)
       lastWork=list2[i][2]
       tmp02=[]
