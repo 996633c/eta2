@@ -323,10 +323,12 @@ for i in CTB_rt["data"]:
     if _Counter>1:
       _rtlist["CTB"][i["route"]]["var"]["O"]["stops"] = _rtlist["CTB"][i["route"]]["var"]["O"]["stops"] + _rtlist["CTB"][i["route"]]["var"]["I"]["stops"][_Counter : ]
       _rtlist["CTB"][i["route"]]["fare"]["O"] = _rtlist["CTB"][i["route"]]["fare"]["O"] + _rtlist["CTB"][i["route"]]["fare"]["O"][_Counter : ]
-      _rtlist["CTB"][i["route"]]["var"]["I"] = {}
+      del _rtlist["CTB"][i["route"]]["var"]["I"]
       _rtlist["CTB"][i["route"]]["fare"]["I"] = []
+      _rtlist["CTB"][i["route"]]["var"]["O"]["dest_tc"] += "(循環線)"
+      _rtlist["CTB"][i["route"]]["var"]["O"]["dest_en"] += " (CIRCULAR)"
       print(_rtlist["CTB"][i["route"]]["var"]["O"]["stops"] + _rtlist["CTB"][i["route"]]["var"]["I"]["stops"][_Counter : ])
-    print(_In, _Out, _Counter, i)
+    #print(_In, _Out, _Counter, i)
   except:
     print(i)
 
