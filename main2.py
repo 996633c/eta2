@@ -325,6 +325,8 @@ try:
       _rtlist["CTB"][i["route"]]["fare"]["O"] = _rtlist["CTB"][i["route"]]["fare"]["O"] + _rtlist["CTB"][i["route"]]["fare"]["O"][_Counter : ]
       _rtlist["CTB"][i["route"]]["var"]["I"] = {}
       _rtlist["CTB"][i["route"]]["fare"]["I"] = []
+      print(_rtlist["CTB"][i["route"]]["var"]["O"]["stops"] + _rtlist["CTB"][i["route"]]["var"]["I"]["stops"][_Counter : ])
+    print(_In, _Out, _Counter, i)
 except:
   print(i)
 
