@@ -5,7 +5,7 @@ import math
 import random
 def getReq(link):
   x = requests.get(link)
-  print(x.status_code)
+  #print(x.status_code)
   return x.content
 import xmltodict
 import geopy
@@ -214,13 +214,13 @@ def fixRt(list2,rt,bound):
           try: list2[tmp02[j]] = [GTFS_fare[rt][BOUND2][str(lastWork+j+1)],lastWork+j+1,lastWork+j+1]
           except: pass
       elif len(tmp02)>0:
-        print("*",rt,tmp02)
+        #print("*",rt,tmp02)
       lastWork=list2[i][2]
       tmp02=[]
 
   tmp0 = 0
   tmp2 = []
-  print("FIXING RT2:",rt,list2)
+  #print("FIXING RT2:",rt,list2)
   for j in list2:
     if list2[j][0] == "-1" or list2[j][0] == "-2": 
       #No Value
@@ -229,7 +229,7 @@ def fixRt(list2,rt,bound):
       #Has Value
       if len(tmp2)>0:
         if list2[j][0][0][0] == tmp0[0][0][0]:
-          print("FIX RT: ",rt,list2,tmp2,tmp0)
+          #print("FIX RT: ",rt,list2,tmp2,tmp0)
           for k in tmp2:
             list2[k] = tmp0
         tmp2=[]
@@ -308,22 +308,24 @@ for stops in _stoplist:
 
 
 #Part V parse Circular Routers
-for i in CTB_rt["data"]:
-  _In = 0
-  _Out = _rtlist["CTB"][i["route"]]["var"]["O"]["stops"].index(_rtlist["CTB"][i["route"]]["var"]["I"]["stops"][0])
-  _Counter = 0
-
-  while _Out < len(_rtlist["CTB"][i["route"]]["var"]["O"]["stops"]) and _rtlist["CTB"][i["route"]]["var"]["I"]["stops"][_In] == _rtlist["CTB"][i["route"]]["var"]["O"]["stops"][_Out]:
-    _Counter += 1
-    _In += 1
-    _Out += 1
-
-  if _Counter>1:
-    _rtlist["CTB"][i["route"]]["var"]["O"]["stops"] = _rtlist["CTB"][i["route"]]["var"]["O"]["stops"] + _rtlist["CTB"][i["route"]]["var"]["I"]["stops"][_Counter : ]
-    _rtlist["CTB"][i["route"]]["fare"]["O"] = _rtlist["CTB"][i["route"]]["fare"]["O"] + _rtlist["CTB"][i["route"]]["fare"]["O"][_Counter : ]
-    _rtlist["CTB"][i["route"]]["var"]["I"] = {}
-    _rtlist["CTB"][i["route"]]["fare"]["I"] = []
-
+try:
+  for i in CTB_rt["data"]:
+    _In = 0
+    _Out = _rtlist["CTB"][i["route"]]["var"]["O"]["stops"].index(_rtlist["CTB"][i["route"]]["var"]["I"]["stops"][0])
+    _Counter = 0
+  
+    while _Out < len(_rtlist["CTB"][i["route"]]["var"]["O"]["stops"]) and _rtlist["CTB"][i["route"]]["var"]["I"]["stops"][_In] == _rtlist["CTB"][i["route"]]["var"]["O"]["stops"][_Out]:
+      _Counter += 1
+      _In += 1
+      _Out += 1
+  
+    if _Counter>1:
+      _rtlist["CTB"][i["route"]]["var"]["O"]["stops"] = _rtlist["CTB"][i["route"]]["var"]["O"]["stops"] + _rtlist["CTB"][i["route"]]["var"]["I"]["stops"][_Counter : ]
+      _rtlist["CTB"][i["route"]]["fare"]["O"] = _rtlist["CTB"][i["route"]]["fare"]["O"] + _rtlist["CTB"][i["route"]]["fare"]["O"][_Counter : ]
+      _rtlist["CTB"][i["route"]]["var"]["I"] = {}
+      _rtlist["CTB"][i["route"]]["fare"]["I"] = []
+except:
+  print(i)
 
 #Part VI parse out
 with open('_rtlist.json', 'w') as f:
