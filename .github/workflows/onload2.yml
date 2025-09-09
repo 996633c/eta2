@@ -1,7 +1,6 @@
 on: 
   push:
   schedule:
-    - cron: "30 13 99 * *"
   workflow_dispatch:
 
 jobs:
